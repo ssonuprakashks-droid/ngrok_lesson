@@ -1,5 +1,9 @@
 from fastapi import FastAPI
-from routes import user_routes   # import your routes file
+from routes import user_routes  
+from db import engine, Base
+from models import User
+ 
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -14,4 +18,4 @@ def read_root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="[IP_ADDRESS]", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
